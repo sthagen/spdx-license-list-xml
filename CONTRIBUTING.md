@@ -1,6 +1,7 @@
 # Before you contribute to the SPDX License List
 Please familiarize yourself with the SPDX License List and its supporting documentation, so that you understand the pertinent context around the list itself:
-* [Overview of the SPDX License List](https://spdx.org/spdx-license-list/license-list-overview) explains some key background, principles for the inclusion of a license on the SPDX License List, as well as an explanation of the fields contained on the list.
+* [License inclusion principles](DOCS/license-inclusion-principles.md) 
+* [Explanation of the fields contained on the list](DOCS/license-fields.md)
 * [SPDX License List Matching Guidelines](https://spdx.org/spdx-license-list/matching-guidelines) provides guidelines to be used for the purposes of matching licenses and license exceptions against those included on the SPDX License List.
 * [SPDX Specification](https://spdx.org/specifications): It is helpful to be familiar with certain sections of the SPDX Specification thatuse or deal with the SPDX License List. In particular: sub-sections related to license information in Section 3, 4, and 6; Appendices II, IV, and V.
 
@@ -17,11 +18,13 @@ Please do not raise general questions via issues in this Github repository, but 
 ## Request a new license or exception be added to the SPDX License List
 The SPDX Legal Team appreciates proposals for new free and open source licenses or exceptions to be added to the SPDX License List.  To request a license or exception be added to the SPDX License List, please:
 
-1.  Review the [license list overview and inclusion principles](https://spdx.org/spdx-license-list/license-list-overview).
+1.  Review the [license inclusion principles](DOCS/license-inclusion-principles.md).
 
 2.  Check the [SPDX License List](https://spdx.org/licenses/), keeping in mind the [SPDX License List Matching Guidelines](https://spdx.org/spdx-license-list/matching-guidelines) and issues labeled [new license/exception request](https://github.com/spdx/license-list-XML/labels/new%20license%2Fexception%20request) to ensure this license or exception has not been previously requested.
 
-3. Submit your request via the SPDX Online Tool [Submit New License](http://13.57.134.254/app/submit_new_license/) using the guidance provided there. See also [overview-fields](https://spdx.org/spdx-license-list/license-list-overview#fields) for more info on some of these fields. Note: you must have a Github account in order to use this tool/process.
+3. Submit your request via the SPDX Online Tool [Submit New License](https://tools.spdx.org/app/submit_new_license/) using the guidance provided there. Also see the [explanation of the fields contained on the list](DOCS/license-fields.md).
+   - Note: You must have a Github account in order to use this tool/process.
+   - Note: Whether you use the [Submit New License](https://tools.spdx.org/app/submit_new_license/) tool or submit manually via a new issue, you will need to provide *all* of the information as per the form in the tool. Incomplete submissions will delay the process.
 
 4. Submitters are expected to follow and participate in the discussion and answer any request for additional information via the issue and comments. Please note, if submitters are unresponsive for several months, the issue will be closed without making a final decision.
 
@@ -30,7 +33,7 @@ The SPDX Legal Team appreciates proposals for new free and open source licenses 
 1. The SPDX Legal Team will discuss any submissions for new licenses or exceptions via comments in the Github issue. Please follow the comments and respond accordingly if there are questions or additional information requested.
 2. New licenses may be approved if 3 SPDX-legal team members (2 lawyers, 1 non-lawyer) sign-off that the license is acceptable AND there is no objection raised from the greater SPDX-legal community within the Github issue comments. If there are objections, then the issue will be labelled "discuss on legal call" and will be discussed on an upcoming bi-weekly call.
 3. Issues will be labelled either "new license/exception: Accepted" or "new license/exception: Not Accepted" as appropriate with an explanation and the Issue closed for the latter case.
-4. If accepted, the new license or exception will be need to be prepared in the proper XML format and plain text test file via a Pull Request and reviewed as appropriate.This is ideally done by the license submitter, with help from experienced members of the SPDX legal team, as needed.
+4. If accepted, the new license or exception will be need to be prepared in the proper XML format and plain text test file via a Pull Request and reviewed as appropriate. The plain text test file should be UTF-8 encoded and match the text and formatting of the original license. The Pull Request is ideally done by the license submitter, with help from experienced members of the SPDX legal team, as needed.
 5. The new license/exception will be officially added for the next release of the SPDX License List.
 
 ## Release Timing
