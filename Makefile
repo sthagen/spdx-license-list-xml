@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: CC0-1.0
 
-TOOL_VERSION = 2.2.1
+TOOL_VERSION = 2.2.2
 TEST_DATA = test/simpleTestForGenerator
 GIT_AUTHOR = License Publisher (maintained by Gary O'Neall) <gary@sourceauditor.com>
 GIT_AUTHOR_EMAIL = gary@sourceauditor.com
@@ -8,7 +8,7 @@ LICENSE_DATA_REPO_NO_SCHEME = github.com/spdx/license-list-data.git
 LICENSE_DATA_REPO = https://$(LICENSE_DATA_REPO_NO_SCHEME)
 LICENSE_DATA_URL = https://$(LICENSE_LIST_GITHUB_TOKEN)@$(LICENSE_DATA_REPO_NO_SCHEME)
 LICENSE_OUTPUT_DIR = .tmp
-GITVERSION = $(shell git describe --always || echo 'UNKNOWN')
+GITVERSION = $(shell git describe --always --tags || echo 'UNKNOWN')
 # Remove leading 'v' or 'V'
 VERSION = $(subst V,,$(subst v,,$(GITVERSION)))
 RELEASE_DATE = $(shell date '+%Y-%m-%d')
@@ -19,6 +19,10 @@ SOURCE_FILE_CHANGED = $(strip $(shell git diff --name-only $(INPUT_BASE_REF) $(G
 NUM_SOURCE_FILE_CHANGED = $(shell git diff --name-only $(INPUT_BASE_REF) $(GITHUB_SHA) | grep 'src/' | wc -l)
 LICENSE_SOURCE_DIR = src
 LICENSE_SOURCE = $(strip $(if $(and $(or $(filter $(NUM_FILES_CHANGED),1), $(filter $(NUM_FILES_CHANGED),2)), $(filter $(NUM_SOURCE_FILE_CHANGED),1)), $(SOURCE_FILE_CHANGED), $(LICENSE_SOURCE_DIR)));
+# these files are copied directly into the website directory
+STATIC_FILES = equivalentwords.txt
+STATIC_FILES_DEST = $(LICENSE_OUTPUT_DIR)/website/
+
 .PHONY: validate-canonical-match
 validate-canonical-match: licenseListPublisher-$(TOOL_VERSION).jar-valid $(TEST_DATA) $(LICENSE_OUTPUT_DIR)
 	echo Validating source files from $(LICENSE_SOURCE)
@@ -32,6 +36,7 @@ deploy-license-data: licenseListPublisher-$(TOOL_VERSION).jar-valid $(TEST_DATA)
 	find '$(LICENSE_OUTPUT_DIR)' -mindepth 1 -maxdepth 1 -name .git -prune -o -name .github -prune -o -type d -exec rm -rf {} \+
 	rm -f $(LICENSE_OUTPUT_DIR)/licenses.md
 	java -jar -DLocalFsfFreeJson=true -DlistedLicenseSchema="schema/ListedLicense.xsd" licenseListPublisher-$(TOOL_VERSION).jar LicenseRDFAGenerator '$(LICENSE_SOURCE_DIR)' '$(LICENSE_OUTPUT_DIR)' $(VERSION) $(RELEASE_DATE) $(TEST_DATA) expected-warnings
+	$(foreach f, $(STATIC_FILES), cp ${f} $(STATIC_FILES_DEST);)
 	git -C '$(LICENSE_OUTPUT_DIR)' add -A .
 	git config user.email "$(GIT_AUTHOR_EMAIL)"
 	git -C '$(LICENSE_OUTPUT_DIR)' commit --author "$(GIT_AUTHOR)" -m "$(COMMIT_MSG)"
